@@ -4,6 +4,6 @@ class Task < ApplicationRecord
   validates :title, presence: true
   validates :description, presence: true
   validates :priority, presence: true, inclusion: { in: %w(High Medium Low), message: "-> Invalid payment method." }
-  validates :completed, presence: true
+  validates :completed, inclusion: { in: [true, false] }
   validates :user, presence: true
 end
