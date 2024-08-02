@@ -2,9 +2,9 @@
 
 class SessionsController < ApplicationController
     def create
-      user = User.find_by(email: params[:email])
+      @user = User.find_by(email: params[:email])
   
-      if user && user.authenticate(params[:password])
+      if @user && @user.authenticate(params[:password_digest])
         token = encode_token(user_id: user.id)
         render json: { token: token }
       else
@@ -15,7 +15,8 @@ class SessionsController < ApplicationController
     private
   
     def encode_token(payload) # gera um token JWT com base no user_id 
-      JWT.encode(payload, Rails.application.secret_key_base)
+      secret_key = Rails.application.credentials.jwt[:secret_key]
+      JWT.encode(payload, secret_key)
     end
   end
   
