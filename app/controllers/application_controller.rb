@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-    #before_action :authenticate_user, if: :require_authentication?
+    before_action :authenticate_user, if: :require_authentication?
 
   
     def authenticate_user
